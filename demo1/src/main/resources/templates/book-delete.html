@@ -1,0 +1,21 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <title th:text="${book.author} + ' – ' + ${book.title} + ' – Delete'"></title>
+    <link type="text/css" rel="stylesheet" th:href="@{/styles/main.css}"/>
+</head>
+<body class="dialog-background">
+<div class="dialog">
+    <h2>Delete book</h2>
+    <hr>
+    <div th:text="${book.author} + ' – ' + ${book.title} + ' (' + ${book.yearReleased} + ')'"></div>
+    <div class="mt-1 danger">All orders of this book will be also deleted</div>
+
+    <form method="post" th:action="@{/books/delete/{id}(id=${book.id})}">
+        <div class="dialog-buttons-panel">
+            <a class="button button-neutral" th:href="@{/books}">Cancel</a>
+            <button type="submit" class="button button-negative">Delete</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

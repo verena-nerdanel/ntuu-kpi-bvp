@@ -1,0 +1,45 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <title>Orders</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/styles/main.css}"/>
+</head>
+<body>
+<div class="main">
+    <div class="nav-menu">
+        <a th:href="@{/books}" class="tab">Books</a>
+        <a th:href="@{/orders}" class="tab tab-selected">Orders</a>
+        <a th:href="@{/stats}" class="tab">Stats</a>
+        <a th:href="@{/stats-avg}" class="tab">Stats avg</a>
+    </div>
+    <div class="nav-content">
+        <h2>Orders</h2>
+        <hr>
+        <div th:switch="${orders}">
+            <div th:case="null">No orders found</div>
+            <div th:case="*">
+                <table>
+                    <tr>
+                        <th>Book</th>
+                        <th>Ordered</th>
+                        <th>Price</th>
+                        <th></th>
+                    </tr>
+                    <tr th:each="order : ${orders}">
+                        <td>
+                            <a th:text="${order.book.author.name} + ' – ' + ${order.book.title} + ' (' +  ${order.book.yearReleased} + ')'"
+                               th:href="@{/orders/edit/{id}(id=${order.id})}"></a>
+                        </td>
+                        <td th:text="${#dates.format(order.date, 'dd-MM-yyyy HH:mm')}"></td>
+                        <td th:text="${order.price}"></td>
+                        <td>
+                            <a th:href="@{/orders/delete/{id}(id=${order.id})}">Delete</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <a th:href="@{/orders/new}" class="button button-positive mt-2">Create order</a>
+    </div>
+</div>
+</body>
+</html>

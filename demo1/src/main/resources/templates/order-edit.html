@@ -1,0 +1,31 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <title th:text="${order.id} != null ? ('Order ' + ${order.id} + ': ' + ${order.book.author} + ' – ' + ${order.book.title} + ' – ' + 'Edit') : 'New order'"></title>
+    <link type="text/css" rel="stylesheet" th:href="@{/styles/main.css}"/>
+</head>
+<body class="dialog-background">
+<div class="dialog">
+    <h2 th:text="${order.id != null ? 'Edit order' : 'New order'}"></h2>
+    <hr>
+    <form method="post" th:action="${order.id} != null ? @{/orders/edit/{id}(id=${order.id})} : @{/orders/new}"
+          th:object="${order}" class="dialog-form">
+
+       <label for="input-book">Book</label>
+        <select id="input-book" th:field="*{book.id}">
+            <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.author.name} + ' – ' + ${book.title} + ' (' + ${book.yearReleased} + ')'"></option>
+        </select>
+
+        <label for="input-date">Date</label>
+        <input id="input-date" type="datetime-local" th:field="*{date}">
+
+        <label for="input-price">Price</label>
+        <input id="input-price" type="number" th:field="*{price}">
+
+        <div class="dialog-buttons-panel">
+            <a class="button button-neutral" th:href="@{/orders}">Cancel</a>
+            <button type="submit" class="button button-positive">Save</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <title th:text="${book.id} != null ? (${book.author} + ' – ' + ${book.title} + ' – ' + 'Edit') : 'New book'"></title>
+    <link type="text/css" rel="stylesheet" th:href="@{/styles/main.css}"/>
+</head>
+<body class="dialog-background">
+<div class="dialog">
+    <h2 th:text="${book.id != null ? 'Edit book' : 'New book'}"></h2>
+    <hr>
+    <form method="post" th:action="${book.id} != null ? @{/books/edit/{id}(id=${book.id})} : @{/books/new}"
+          th:object="${book}" class="dialog-form">
+        <label for="input-title">Title</label>
+        <input id="input-title" type="text" th:field="*{title}">
+
+        <label for="input-author">Author</label>
+        <input id="input-author" type="text" list="list-authors" th:field="*{author}">
+        <datalist id="list-authors">
+            <option th:each="author : ${authors}" th:text="${author.name}"></option>
+        </datalist>
+
+        <label for="input-genre">Genre</label>
+        <input id="input-genre" type="text" list="list-genres" th:field="*{genre}">
+        <datalist id="list-genres">
+            <option th:each="genre : ${genres}" th:text="${genre.name}"></option>
+        </datalist>
+
+        <label for="input-year">Year released</label>
+        <input id="input-year" type="number" th:field="*{yearReleased}">
+
+        <div class="dialog-buttons-panel">
+            <a class="button button-neutral" th:href="@{/books}">Cancel</a>
+            <button type="submit" class="button button-positive">Save</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

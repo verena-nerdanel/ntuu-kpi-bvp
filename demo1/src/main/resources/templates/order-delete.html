@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <title th:text="'Order ' + ${order.id} + ' – Delete'"></title>
+    <link type="text/css" rel="stylesheet" th:href="@{/styles/main.css}"/>
+</head>
+<body class="dialog-background">
+<div class="dialog">
+    <h2>Delete order</h2>
+    <hr>
+    <table>
+        <tr>
+            <td>Article</td>
+            <td th:text="${order.book.author.name} + ' – ' + ${order.book.title} + ' (' + ${order.book.yearReleased} + ')'"></td>
+        </tr>
+        <tr>
+            <td>Date</td>
+            <td th:text="${order.date}"></td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td th:text="'$ ' + ${order.price}"></td>
+        </tr>
+    </table>
+
+    <form method="post" th:action="@{/orders/delete/{id}(id=${order.id})}">
+        <div class="dialog-buttons-panel">
+            <a class="button button-neutral" th:href="@{/orders}">Cancel</a>
+            <button type="submit" class="button button-negative">Delete</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

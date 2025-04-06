@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <title>Stats</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/styles/main.css}"/>
+</head>
+<body>
+<div class="main">
+    <div class="nav-menu">
+        <a th:href="@{/books}" class="tab">Books</a>
+        <a th:href="@{/orders}" class="tab">Orders</a>
+        <a th:href="@{/stats}" class="tab">Stats</a>
+        <a th:href="@{/stats-avg}" class="tab tab-selected">Stats avg</a>
+    </div>
+    <div class="nav-content">
+        <h2>Stats avg</h2>
+        <hr>
+
+        <h3>Average orders count per genre</h3>
+
+        <div th:switch="${stats.average}">
+            <div th:case="null">No books found</div>
+            <table th:case="*">
+                <tr>
+                    <th class="full-width">Book</th>
+                    <th>Average orders, per year</th>
+                    <th>Genre</th>
+                    <th>Average exceeding orders, per year</th>
+                </tr>
+                <tr th:each="info : ${stats.average}">
+                    <td>
+                        <div th:text="${info.book.author.name} + ' – ' + ${info.book.title} + ' (' +  ${info.book.yearReleased} + ')'"></div>
+                    </td>
+                    <td th:text="${info.averageOrdersPerYear}"></td>
+                    <td th:text="${info.book.genre.name}"></td>
+                    <td th:text="${info.averageExceedingOrdersPerYear}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

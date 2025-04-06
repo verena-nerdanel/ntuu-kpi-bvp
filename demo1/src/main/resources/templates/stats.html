@@ -1,0 +1,73 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <title>Stats</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/styles/main.css}"/>
+</head>
+<body>
+<div class="main">
+    <div class="nav-menu">
+        <a th:href="@{/books}" class="tab">Books</a>
+        <a th:href="@{/orders}" class="tab">Orders</a>
+        <a th:href="@{/stats}" class="tab tab-selected">Stats</a>
+        <a th:href="@{/stats-avg}" class="tab">Stats avg</a>
+    </div>
+    <div class="nav-content">
+        <h2>Stats</h2>
+        <hr>
+
+        <h3>Top best sellers</h3>
+        <div th:switch="${stats.topBooks}">
+            <div th:case="null">No books found</div>
+            <table th:case="*">
+                <tr>
+                    <th class="full-width">Book</th>
+                    <th>Orders</th>
+                </tr>
+                <tr th:each="info : ${stats.topBooks}">
+                    <td>
+                        <div th:text="${info.value.author.name} + ' – ' + ${info.value.title} + ' (' +  ${info.value.yearReleased} + ')'"></div>
+                    </td>
+                    <td th:text="${info.count}"></td>
+                </tr>
+            </table>
+        </div>
+
+        <h3 class="mt-4">Top authors</h3>
+        <div th:switch="${stats.topAuthors}">
+            <div th:case="null">No authors found</div>
+            <table th:case="*">
+                <tr>
+                    <th class="full-width">Author</th>
+                    <th>Orders</th>
+                </tr>
+                <tr th:each="info : ${stats.topAuthors}">
+                    <td>
+                        <div th:text="${info.value.name}"></div>
+                    </td>
+                    <td th:text="${info.count}"></td>
+                </tr>
+            </table>
+        </div>
+
+        <h3 class="mt-4">Top genres</h3>
+        <div th:switch="${stats.topGenres}">
+            <div th:case="null">No genres found</div>
+            <table th:case="*">
+                <tr>
+                    <th class="full-width">Genre</th>
+                    <th>Orders</th>
+                </tr>
+                <tr th:each="info : ${stats.topGenres}">
+                    <td>
+                        <div>
+                            <a th:href="@{/books?genre={name}(name=${info.value})}" th:text="${info.value}"></a>
+                        </div>
+                    </td>
+                    <td th:text="${info.count}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

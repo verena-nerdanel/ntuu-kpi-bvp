@@ -1,0 +1,53 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <title>Books</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/styles/main.css}"/>
+</head>
+<body>
+<div class="main">
+    <div class="nav-menu">
+        <a th:href="@{/books}" class="tab tab-selected">Books</a>
+        <a th:href="@{/orders}" class="tab">Orders</a>
+        <a th:href="@{/stats}" class="tab">Stats</a>
+        <a th:href="@{/stats-avg}" class="tab">Stats avg</a>
+    </div>
+    <div class="nav-content">
+        <h2>Books</h2>
+        <hr>
+        <div th:switch="${books}">
+            <div th:case="null">No books found</div>
+            <div th:case="*">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Genre</th>
+                        <th>Year</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="book : ${books}">
+                        <td>
+                            <a th:href="@{/books/edit/{id}(id=${book.id})}" th:text="${book.title}"></a>
+                        </td>
+                        <td th:text="${book.author}">
+                        </td>
+                        <td>
+                            <a th:href="@{/books?genre={id}(id=${book.genre})}" th:text="${book.genre}"></a>
+                        </td>
+                        <td th:text="${book.yearReleased}"></td>
+                        <td>
+                            <a th:href="@{/books/delete/{id}(id=${book.id})}">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <a th:href="@{/books/new}" class="button button-positive mt-2">Add book</a>
+    </div>
+</div>
+</body>
+</html>
