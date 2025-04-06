@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <style>
+      .table {
+        display: table;
+        width: 300px;
+      }
+      
+      .row {
+        display: table-row;
+      }
+      
+      .cell {
+        display: table-cell;
+        padding: 10px;
+      }
+      
+      select, input {
+        width: 100%;
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="table">
+      <div class="row">
+        <div class="cell">
+          Mode
+        </div>
+        <div class="cell">
+          <select id="mode" onchange="onChange()">
+            <option>sin</option>
+            <option>cos</option>
+            <option>tan</option>
+            <option>ctg</option>
+            <option>grad2rad</option>
+            <option>rad2grad</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell">
+          Input
+        </div>
+        <div class="cell">
+          <input type="decimal" id="input" onkeyup="onChange()">
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell">
+          Output
+        </div>
+        <div class="cell">
+          <input type="number" id="output" disabled>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      const fieldMode = document.getElementById("mode");
+      const fieldInput = document.getElementById("input");
+      const fieldOutput = document.getElementById("output");
+      
+      function onChange() {
+        const mode = fieldMode.value;
+        const x = Number(fieldInput.value);
+        const y = calculate(mode, x);
+        fieldOutput.value = y.toFixed(6);
+      }
+      
+      function calculate(mode, x) {
+        switch (mode) {
+          case "sin":
+            return Math.sin(x * Math.PI / 180);
+          case "cos":
+            return Math.cos(x * Math.PI / 180);
+          case "tan":
+            return Math.tan(x * Math.PI / 180);
+          case "ctg":
+            return 1 / Math.tan(x * Math.PI / 180);
+          case "grad2rad":
+            return x * Math.PI / 180;
+          case "rad2grad":
+            return x / Math.PI * 180;
+        }
+      }
+    </script>
+  </body>
+</html>
