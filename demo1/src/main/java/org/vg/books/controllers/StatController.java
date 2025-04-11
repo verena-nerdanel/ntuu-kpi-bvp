@@ -61,7 +61,6 @@ public class StatController {
                             .average()
                             .orElse(0.0);
 
-
                     final double avgExceedingOrders = StreamSupport.stream(bookOrderRepository.findAll().spliterator(), false)
                             .filter(o -> o.getBook().getGenre().getId().equals(book.getGenre().getId()))
                             .filter(o -> o.getDate().after(sinceTime))

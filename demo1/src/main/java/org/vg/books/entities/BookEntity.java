@@ -28,7 +28,7 @@ public class BookEntity {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private GenreEntity genre;
 
-    @JoinColumn(name = "AUTHOR")
+    @JoinColumn(name = "AUTHOR_ID")
     @ManyToOne(cascade = CascadeType.PERSIST)
     private AuthorEntity author;
 }
